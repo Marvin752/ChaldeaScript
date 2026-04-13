@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChaldeaScript Compiler</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rajdhani:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #0a0a0f;
+            color: #e0d5c5;
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            background-image: radial-gradient(ellipse at top, #1a0a2e 0%, #0a0a0f 60%);
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            border-bottom: 1px solid #c9a84c44;
+            background: linear-gradient(180deg, #1a0a2e 0%, transparent 100%);
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            color: #c9a84c;
+            text-shadow: 0 0 30px #c9a84c88, 0 0 60px #c9a84c44;
+            letter-spacing: 6px;
+        }
+
+        header h1 span { color: #fff; }
+
+        header p {
+            color: #8a7a6a;
+            font-size: 0.95rem;
+            margin-top: 6px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .holy-grail-icon { font-size: 2rem; margin-right: 10px; vertical-align: middle; }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .panel {
+            background: #0f0f1a;
+            border: 1px solid #c9a84c33;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: linear-gradient(90deg, #1a1020 0%, #0f0f1a 100%);
+            padding: 12px 18px;
+            border-bottom: 1px solid #c9a84c33;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-header h3 {
+            font-family: 'Cinzel', serif;
+            color: #c9a84c;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .panel-body { padding: 16px; }
+
+        .editor-panel { grid-column: 1; grid-row: 1 / 3; }
+
+        #codigo {
+            width: 100%;
+            height: 380px;
+            background: #07070f;
+            border: 1px solid #c9a84c22;
+            border-radius: 3px;
+            color: #e0d5c5;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            padding: 16px;
+            resize: vertical;
+            outline: none;
+            line-height: 1.6;
+            transition: border-color 0.3s;
+        }
+
+        #codigo:focus {
+            border-color: #c9a84c66;
+            box-shadow: 0 0 15px #c9a84c11;
+        }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+        .btn {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #c9a84c, #a07830);
+            color: #0a0a0f;
+            font-weight: 700;
+            box-shadow: 0 0 20px #c9a84c44;
+        }
+
+        .btn-primary:hover { box-shadow: 0 0 30px #c9a84c88; transform: translateY(-1px); }
+
+        .btn-secondary { background: transparent; color: #c9a84c; border: 1px solid #c9a84c55; }
+        .btn-secondary:hover { background: #c9a84c11; border-color: #c9a84c; }
+
+        .btn-danger { background: transparent; color: #c04040; border: 1px solid #c0404055; }
+        .btn-danger:hover { background: #c0404011; border-color: #c04040; }
+
+        .tabs { display: flex; border-bottom: 1px solid #c9a84c22; }
+
+        .tab {
+            padding: 10px 18px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #6a5a4a;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            font-family: 'Cinzel', serif;
+        }
+
+        .tab:hover { color: #c9a84c; }
+        .tab.active { color: #c9a84c; border-bottom-color: #c9a84c; }
+
+        .tab-content { display: none; padding: 16px; }
+        .tab-content.active { display: block; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+
+        th {
+            background: #1a1020;
+            color: #c9a84c;
+            padding: 10px 12px;
+            text-align: left;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #c9a84c33;
+        }
+
+        td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ffffff08;
+            color: #c0b090;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+        }
+
+        tr:hover td { background: #c9a84c08; }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-size: 0.72rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        .badge-token { background: #1a2a1a; color: #4a9a4a; border: 1px solid #4a9a4a44; }
+        .badge-error-lexico { background: #2a1a1a; color: #c04040; border: 1px solid #c0404044; }
+        .badge-error-sint { background: #2a1a2a; color: #a040c0; border: 1px solid #a040c044; }
+
+        .status-bar {
+            padding: 10px 16px;
+            border-top: 1px solid #c9a84c22;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-ok { color: #4a9a4a; }
+        .status-error { color: #c04040; }
+        .status-idle { color: #6a5a4a; }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #4a3a2a;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #c9a84c;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0f; }
+        ::-webkit-scrollbar-thumb { background: #c9a84c44; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c9a84c88; }
+
+        .results-panel { grid-column: 2; grid-row: 1 / 3; }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c9a84c44, transparent);
+            margin: 16px 0;
+        }
+
+        .examples-btn { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+        .example-chip {
+            padding: 4px 12px;
+            background: #1a1020;
+            border: 1px solid #c9a84c33;
+            border-radius: 2px;
+            color: #8a7a5a;
+            font-size: 0.75rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .example-chip:hover { border-color: #c9a84c; color: #c9a84c; background: #c9a84c11; }
+
+        /* ÁRBOL VISUAL */
+        .tree-wrapper { overflow: auto; max-height: 520px; padding: 20px; }
+
+        .tree { display: flex; justify-content: center; }
+
+        .tree-node {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tree-node.interno { background: #1a1030; border: 1px solid #c9a84c44; color: #c9a84c; }
+        .tree-node.interno:hover { background: #2a1a40; border-color: #c9a84c; box-shadow: 0 0 10px #c9a84c33; }
+        .tree-node.hoja { background: #0a1a0a; border: 1px solid #4a9a4a44; color: #6aaa6a; font-family: 'Courier New', monospace; font-size: 0.72rem; }
+        .tree-node.hoja:hover { border-color: #4a9a4a; }
+        .tree-node.error-node { background: #1a0a0a; border: 1px solid #c0404044; color: #c04040; }
+
+        .node-wrapper { display: flex; flex-direction: column; align-items: center; }
+
+        .node-children {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            position: relative;
+            padding-top: 20px;
+            gap: 4px;
+        }
+
+        .node-children::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 20px;
+            background: #c9a84c44;
+        }
+
+        .node-child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 4px;
+            position: relative;
+        }
+
+        .node-child::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 20px;
+            background: #c9a84c44;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><span class="holy-grail-icon">⚔</span> <span>Chaldea</span>Script</h1>
+    <p>Mini-Compilador &nbsp;|&nbsp; Fate/Grand Order Themed Language</p>
+</header>
+
+<div class="container">
+
+    <!-- EDITOR PANEL -->
+    <div class="panel editor-panel">
+        <div class="panel-header">
+            <h3>⚡ Editor de Código</h3>
+            <span style="color:#4a3a2a; font-size:0.75rem; letter-spacing:2px;">.chs</span>
+        </div>
+        <div class="panel-body">
+            <textarea id="codigo" placeholder="// Escribe tu código ChaldeaScript aquí...
+// Ejemplo:
+summon hp = 100;
+chant &quot;Bienvenido a Chaldea&quot;;
+battle (hp > 0) {
+    chant &quot;El servant sigue en batalla&quot;;
+}"></textarea>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="compilar()">⚔ Compilar</button>
+                <button class="btn btn-secondary" onclick="limpiar()">✦ Limpiar</button>
+                <button class="btn btn-danger" onclick="limpiarResultados()">✕ Reset</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <div style="color:#6a5a4a; font-size:0.75rem; letter-spacing:2px; margin-bottom:8px;">EJEMPLOS RÁPIDOS</div>
+            <div class="examples-btn">
+                <span class="example-chip" onclick="cargarEjemplo('basico')">Básico</span>
+                <span class="example-chip" onclick="cargarEjemplo('battle')">Battle</span>
+                <span class="example-chip" onclick="cargarEjemplo('skill')">Skill</span>
+                <span class="example-chip" onclick="cargarEjemplo('grail')">Grail</span>
+                <span class="example-chip" onclick="cargarEjemplo('error')">Con Errores</span>
+            </div>
+        </div>
+
+        <div class="status-bar" id="status-bar">
+            <div class="dot status-idle"></div>
+            <span class="status-idle">Esperando código...</span>
+        </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="panel results-panel">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('tokens')">Tokens</div>
+            <div class="tab" onclick="showTab('errores')">Errores</div>
+            <div class="tab" onclick="showTab('arbol')">Árbol</div>
+        </div>
+
+        <!-- TOKENS -->
+        <div class="tab-content active" id="tab-tokens">
+            <div id="tokens-container">
+                <div class="empty-state">⚔ Compila tu código para ver los tokens</div>
+            </div>
+        </div>
+
+        <!-- ERRORES -->
+        <div class="tab-content" id="tab-errores">
+            <div id="errores-container">
+                <div class="empty-state">✦ Sin errores detectados</div>
+            </div>
+        </div>
+
+        <!-- ÁRBOL -->
+        <div class="tab-content" id="tab-arbol">
+            <div id="arbol-container" class="tree-wrapper" style="display:none;">
+                <div class="tree" id="arbol-tree"></div>
+            </div>
+            <div class="empty-state" id="arbol-empty">⚔ Compila para ver el árbol sintáctico</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const ejemplos = {
+        basico: `// Ejemplo básico
+summon hp = 100;
+summon nombre = "Artoria";
+chant "Bienvenido a Chaldea";
+chant nombre;`,
+
+        battle: `// Condicional battle/retreat
+summon hp = 150;
+summon enemigo = 80;
+
+battle (hp > enemigo) {
+    chant "Victoria del Servant!";
+} retreat {
+    chant "Retirada estrategica";
+}`,
+
+        skill: `// Declaración de skills
+skill invocar() {
+    summon poder = 999;
+    chant "Noble Phantasm activado!";
+}
+
+skill curar() {
+    chant "Servant curado!";
+}
+
+invocar();
+curar();`,
+
+        grail: `// Ciclo grail
+summon mana = 5;
+
+grail (mana > 0) {
+    chant "Usando el Santo Grial";
+    summon mana = mana - 1;
+}
+
+chant "Mana agotado";`,
+
+        error: `// Código con errores
+summon hp = 100
+summon @mana = 50;
+battle hp > 0 {
+    chant "Falta parentesis"
+}`
+    };
+
+    function cargarEjemplo(tipo) {
+        document.getElementById('codigo').value = ejemplos[tipo];
+    }
+
+    function showTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    function setStatus(tipo, mensaje) {
+        const bar = document.getElementById('status-bar');
+        bar.innerHTML = `<div class="dot ${tipo}"></div><span class="${tipo}">${mensaje}</span>`;
+    }
+
+    async function compilar() {
+        const codigo = document.getElementById('codigo').value.trim();
+        if (!codigo) {
+            setStatus('status-error', 'No hay código para compilar');
+            return;
+        }
+
+        setStatus('status-idle', 'Compilando...');
+        document.getElementById('tokens-container').innerHTML = '<div class="loading">⚔ Analizando código...</div>';
+
+        try {
+            const response = await fetch('/api/compilar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ codigo })
+            });
+
+            const data = await response.json();
+            mostrarTokens(data.tokens || []);
+            mostrarErrores(data.errores || []);
+            mostrarArbol(data.arbolJson || null);
+
+            if (data.exito) {
+                setStatus('status-ok', `Compilación exitosa — ${(data.tokens || []).length} tokens encontrados`);
+            } else {
+                setStatus('status-error', `Se encontraron ${(data.errores || []).length} errores`);
+            }
+
+        } catch (err) {
+            setStatus('status-error', 'Error al conectar con el compilador');
+            document.getElementById('tokens-container').innerHTML = '<div class="empty-state">Error de conexión</div>';
+        }
+    }
+
+    function mostrarTokens(tokens) {
+        if (!tokens.length) {
+            document.getElementById('tokens-container').innerHTML = '<div class="empty-state">Sin tokens</div>';
+            return;
+        }
+
+        let html = `<table>
+            <thead><tr>
+                <th>#</th><th>Valor</th><th>Tipo</th><th>Línea</th><th>Col</th>
+            </tr></thead><tbody>`;
+
+        tokens.forEach(t => {
+            html += `<tr>
+                <td>${t.numero}</td>
+                <td><code style="color:#c9a84c">${escHtml(t.valor)}</code></td>
+                <td><span class="badge badge-token">${t.tipo}</span></td>
+                <td>${t.linea}</td>
+                <td>${t.columna}</td>
+            </tr>`;
+        });
+
+        html += '</tbody></table>';
+        document.getElementById('tokens-container').innerHTML = html;
+    }
+
+    function mostrarErrores(errores) {
+        if (!errores.length) {
+            document.getElementById('errores-container').innerHTML =
+                '<div class="empty-state" style="color:#4a9a4a">✦ Código válido — Sin errores</div>';
+            return;
+        }
+
+        let html = `<table>
+            <thead><tr>
+                <th>Tipo</th><th>Línea</th><th>Col</th><th>Descripción</th>
+            </tr></thead><tbody>`;
+
+        errores.forEach(e => {
+            const badge = e.tipo === 'LÉXICO' ? 'badge-error-lexico' : 'badge-error-sint';
+            html += `<tr>
+                <td><span class="badge ${badge}">${e.tipo}</span></td>
+                <td>${e.linea}</td>
+                <td>${e.columna}</td>
+                <td style="color:#c08060">${escHtml(e.descripcion)}</td>
+            </tr>`;
+        });
+
+        html += '</tbody></table>';
+        document.getElementById('errores-container').innerHTML = html;
+    }
+    function mostrarArbol(arbolJson) {
+        const container = document.getElementById('arbol-container');
+        const empty = document.getElementById('arbol-empty');
+        const treeDiv = document.getElementById('arbol-tree');
+
+        if (!arbolJson) {
+            container.style.display = 'none';
+            empty.style.display = 'block';
+            return;
+        }
+
+        treeDiv.innerHTML = construirArbolHtml(arbolJson);
+        container.style.display = 'block';
+        empty.style.display = 'none';
+    }
+
+    function construirArbolHtml(nodo) {
+        if (!nodo) return '';
+
+        const esError = nodo.nombre && (
+            nodo.nombre.includes('missing') ||
+            nodo.nombre.includes('mismatched') ||
+            nodo.nombre.includes('<EOF>')
+        );
+
+        const clase = nodo.esHoja
+            ? (esError ? 'error-node' : 'hoja')
+            : 'interno';
+
+        let html = `<ul><li>
+            <span class="tree-node ${clase}">${escHtml(nodo.nombre)}</span>`;
+
+        if (nodo.hijos && nodo.hijos.length > 0) {
+            nodo.hijos.forEach(hijo => {
+                html += construirArbolHtml(hijo);
+            });
+        }
+
+        html += '</li></ul>';
+        return html;
+    }
+
+    function limpiar() {
+        document.getElementById('codigo').value = '';
+    }
+
+    function limpiarResultados() {
+        document.getElementById('codigo').value = '';
+        document.getElementById('tokens-container').innerHTML = '<div class="empty-state">⚔ Compila tu código para ver los tokens</div>';
+        document.getElementById('errores-container').innerHTML = '<div class="empty-state">✦ Sin errores detectados</div>';
+        document.getElementById('arbol-container').style.display = 'none';
+        document.getElementById('arbol-empty').style.display = 'block';
+        setStatus('status-idle', 'Esperando código...');
+    }
+
+    function escHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+</script>
+
+</body>
+</html>

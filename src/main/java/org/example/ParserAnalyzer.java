@@ -2,6 +2,7 @@ package org.example;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import java.util.*;
 
 public class ParserAnalyzer {
     private ErrorHandler errorHandler;
@@ -43,5 +44,39 @@ public class ParserAnalyzer {
 
     public ParseTree getArbol() {
         return arbol;
+    }
+
+    public String getArbolString() {
+        if (arbol != null && parser != null) {
+            return arbol.toStringTree(parser);
+        }
+        return "No se pudo generar el árbol.";
+    }
+
+    public Map<String, Object> getArbolJson() {
+        if (arbol == null) return null;
+        return construirNodo(arbol);
+    }
+
+    private Map<String, Object> construirNodo(org.antlr.v4.runtime.tree.ParseTree nodo) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        String nombre = nodo.getClass().getSimpleName()
+                .replace("Context", "")
+                .replace("TerminalNodeImpl", "");
+
+        if (nodo.getChildCount() == 0) {
+            map.put("nombre", nodo.getText());
+            map.put("hijos", new ArrayList<>());
+            map.put("esHoja", true);
+        } else {
+            map.put("nombre", nombre.isEmpty() ? nodo.getText() : nombre);
+            map.put("esHoja", false);
+            List<Map<String, Object>> hijos = new ArrayList<>();
+            for (int i = 0; i < nodo.getChildCount(); i++) {
+                hijos.add(construirNodo(nodo.getChild(i)));
+            }
+            map.put("hijos", hijos);
+        }
+        return map;
     }
 }
