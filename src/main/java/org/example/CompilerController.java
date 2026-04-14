@@ -35,8 +35,10 @@ public class CompilerController {
     public Map<String, Object> obtenerEjemplo(@PathVariable String nombre) {
         Map<String, Object> resultado = new HashMap<>();
         try {
-            String ruta = "src/main/resources/" + nombre + ".chs";
-            String codigo = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(ruta)));
+            org.springframework.core.io.ClassPathResource resource =
+                    new org.springframework.core.io.ClassPathResource(nombre + ".chs");
+            String codigo = new String(resource.getInputStream().readAllBytes(),
+                    java.nio.charset.StandardCharsets.UTF_8);
             resultado.put("codigo", codigo);
             resultado.put("exito", true);
         } catch (Exception e) {
