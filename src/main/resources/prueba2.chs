@@ -1,13 +1,10 @@
-// Prueba 2 - Código con errores léxicos y sintácticos
+// Prueba 2 - Errores léxicos en ChaldeaScript
 
-summon hp = 100
+summon hp = 100;
 summon mana = @50;
-chant "Iniciando batalla"
-
-battle (hp > 0) {
-    chant "Atacando"
-    summon ataque = 25;
-}
-
-grail (mana > 0) {
-    chant "Usando mana"
+summon nombre = "Artoria;
+summon valor = 10$;
+summon codigo = #999;
+summon extra = 10%;
+summon raro = 5 ^ 3;
+chant "Todo mal aqui";

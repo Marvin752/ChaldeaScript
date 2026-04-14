@@ -10,32 +10,32 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #0a0a0f;
-            color: #e0d5c5;
+            background-color: #050a1a;
+            color: #c0d5e5;
             font-family: 'Rajdhani', sans-serif;
             min-height: 100vh;
-            background-image: radial-gradient(ellipse at top, #1a0a2e 0%, #0a0a0f 60%);
+            background-image: radial-gradient(ellipse at top, #0a1a3a 0%, #050a1a 60%);
         }
 
         header {
             text-align: center;
             padding: 30px 20px 20px;
-            border-bottom: 1px solid #c9a84c44;
-            background: linear-gradient(180deg, #1a0a2e 0%, transparent 100%);
+            border-bottom: 1px solid #4a9acc44;
+            background: linear-gradient(180deg, #0a1a3a 0%, transparent 100%);
         }
 
         header h1 {
             font-family: 'Cinzel', serif;
             font-size: 2.8rem;
-            color: #c9a84c;
-            text-shadow: 0 0 30px #c9a84c88, 0 0 60px #c9a84c44;
+            color: #4a9acc;
+            text-shadow: 0 0 30px #4a9acc88, 0 0 60px #4a9acc44;
             letter-spacing: 6px;
         }
 
         header h1 span { color: #fff; }
 
         header p {
-            color: #8a7a6a;
+            color: #6a8aaa;
             font-size: 0.95rem;
             margin-top: 6px;
             letter-spacing: 3px;
@@ -54,16 +54,16 @@
         }
 
         .panel {
-            background: #0f0f1a;
-            border: 1px solid #c9a84c33;
+            background: #080f20;
+            border: 1px solid #1a3a6a55;
             border-radius: 4px;
             overflow: hidden;
         }
 
         .panel-header {
-            background: linear-gradient(90deg, #1a1020 0%, #0f0f1a 100%);
+            background: linear-gradient(90deg, #0a1a3a 0%, #080f20 100%);
             padding: 12px 18px;
-            border-bottom: 1px solid #c9a84c33;
+            border-bottom: 1px solid #1a3a6a55;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -71,7 +71,7 @@
 
         .panel-header h3 {
             font-family: 'Cinzel', serif;
-            color: #c9a84c;
+            color: #e0eaf5;
             font-size: 0.85rem;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -84,10 +84,10 @@
         #codigo {
             width: 100%;
             height: 380px;
-            background: #07070f;
-            border: 1px solid #c9a84c22;
+            background: #030710;
+            border: 1px solid #1a3a6a44;
             border-radius: 3px;
-            color: #e0d5c5;
+            color: #e0eaf5;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
             padding: 16px;
@@ -98,8 +98,8 @@
         }
 
         #codigo:focus {
-            border-color: #c9a84c66;
-            box-shadow: 0 0 15px #c9a84c11;
+            border-color: #4a9acc66;
+            box-shadow: 0 0 15px #4a9acc11;
         }
 
         .btn-group { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
@@ -117,21 +117,22 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #c9a84c, #a07830);
-            color: #0a0a0f;
+            background: linear-gradient(135deg, #1a5a9a, #0a3a6a);
+            color: #e0eaf5;
             font-weight: 700;
-            box-shadow: 0 0 20px #c9a84c44;
+            box-shadow: 0 0 20px #4a9acc44;
+            border: 1px solid #4a9acc66;
         }
 
-        .btn-primary:hover { box-shadow: 0 0 30px #c9a84c88; transform: translateY(-1px); }
+        .btn-primary:hover { box-shadow: 0 0 30px #4a9acc88; transform: translateY(-1px); }
 
-        .btn-secondary { background: transparent; color: #c9a84c; border: 1px solid #c9a84c55; }
-        .btn-secondary:hover { background: #c9a84c11; border-color: #c9a84c; }
+        .btn-secondary { background: transparent; color: #c0d5e5; border: 1px solid #4a9acc55; }
+        .btn-secondary:hover { background: #4a9acc11; border-color: #4a9acc; color: #fff; }
 
         .btn-danger { background: transparent; color: #c04040; border: 1px solid #c0404055; }
         .btn-danger:hover { background: #c0404011; border-color: #c04040; }
 
-        .tabs { display: flex; border-bottom: 1px solid #c9a84c22; }
+        .tabs { display: flex; border-bottom: 1px solid #1a3a6a44; }
 
         .tab {
             padding: 10px 18px;
@@ -139,14 +140,14 @@
             font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #6a5a4a;
+            color: #4a6a8a;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
             font-family: 'Cinzel', serif;
         }
 
-        .tab:hover { color: #c9a84c; }
-        .tab.active { color: #c9a84c; border-bottom-color: #c9a84c; }
+        .tab:hover { color: #e0eaf5; }
+        .tab.active { color: #e0eaf5; border-bottom-color: #4a9acc; }
 
         .tab-content { display: none; padding: 16px; }
         .tab-content.active { display: block; }
@@ -154,25 +155,25 @@
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 
         th {
-            background: #1a1020;
-            color: #c9a84c;
+            background: #0a1a3a;
+            color: #e0eaf5;
             padding: 10px 12px;
             text-align: left;
             font-family: 'Cinzel', serif;
             font-size: 0.75rem;
             letter-spacing: 2px;
-            border-bottom: 1px solid #c9a84c33;
+            border-bottom: 1px solid #1a3a6a55;
         }
 
         td {
             padding: 8px 12px;
             border-bottom: 1px solid #ffffff08;
-            color: #c0b090;
+            color: #c0d5e5;
             font-family: 'Courier New', monospace;
             font-size: 0.82rem;
         }
 
-        tr:hover td { background: #c9a84c08; }
+        tr:hover td { background: #4a9acc08; }
 
         .badge {
             display: inline-block;
@@ -183,13 +184,12 @@
             letter-spacing: 1px;
         }
 
-        .badge-token { background: #1a2a1a; color: #4a9a4a; border: 1px solid #4a9a4a44; }
         .badge-error-lexico { background: #2a1a1a; color: #c04040; border: 1px solid #c0404044; }
         .badge-error-sint { background: #2a1a2a; color: #a040c0; border: 1px solid #a040c044; }
 
         .status-bar {
             padding: 10px 16px;
-            border-top: 1px solid #c9a84c22;
+            border-top: 1px solid #1a3a6a44;
             font-size: 0.8rem;
             letter-spacing: 1px;
             display: flex;
@@ -199,14 +199,14 @@
 
         .status-ok { color: #4a9a4a; }
         .status-error { color: #c04040; }
-        .status-idle { color: #6a5a4a; }
+        .status-idle { color: #4a6a8a; }
 
         .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #4a3a2a;
+            color: #1a3a5a;
             font-size: 0.85rem;
             letter-spacing: 2px;
         }
@@ -214,7 +214,7 @@
         .loading {
             text-align: center;
             padding: 30px;
-            color: #c9a84c;
+            color: #4a9acc;
             animation: pulse 1.5s infinite;
         }
 
@@ -224,15 +224,15 @@
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0a0a0f; }
-        ::-webkit-scrollbar-thumb { background: #c9a84c44; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #c9a84c88; }
+        ::-webkit-scrollbar-track { background: #050a1a; }
+        ::-webkit-scrollbar-thumb { background: #1a3a6a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4a9acc; }
 
         .results-panel { grid-column: 2; grid-row: 1 / 3; }
 
         .divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent, #c9a84c44, transparent);
+            background: linear-gradient(90deg, transparent, #4a9acc44, transparent);
             margin: 16px 0;
         }
 
@@ -240,81 +240,21 @@
 
         .example-chip {
             padding: 4px 12px;
-            background: #1a1020;
-            border: 1px solid #c9a84c33;
+            background: #0a1a3a;
+            border: 1px solid #1a3a6a55;
             border-radius: 2px;
-            color: #8a7a5a;
+            color: #6a8aaa;
             font-size: 0.75rem;
             cursor: pointer;
             letter-spacing: 1px;
             transition: all 0.2s;
         }
 
-        .example-chip:hover { border-color: #c9a84c; color: #c9a84c; background: #c9a84c11; }
+        .example-chip:hover { border-color: #4a9acc; color: #e0eaf5; background: #4a9acc11; }
 
         /* ÁRBOL VISUAL */
-        .tree-wrapper { overflow: auto; max-height: 520px; padding: 20px; }
-
-        .tree { display: flex; justify-content: center; }
-
-        .tree-node {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.68rem;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .tree-node.interno { background: #1a1030; border: 1px solid #c9a84c44; color: #c9a84c; }
-        .tree-node.interno:hover { background: #2a1a40; border-color: #c9a84c; box-shadow: 0 0 10px #c9a84c33; }
-        .tree-node.hoja { background: #0a1a0a; border: 1px solid #4a9a4a44; color: #6aaa6a; font-family: 'Courier New', monospace; font-size: 0.72rem; }
-        .tree-node.hoja:hover { border-color: #4a9a4a; }
-        .tree-node.error-node { background: #1a0a0a; border: 1px solid #c0404044; color: #c04040; }
-
-        .node-wrapper { display: flex; flex-direction: column; align-items: center; }
-
-        .node-children {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            position: relative;
-            padding-top: 20px;
-            gap: 4px;
-        }
-
-        .node-children::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 20px;
-            background: #c9a84c44;
-        }
-
-        .node-child {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 4px;
-            position: relative;
-        }
-
-        .node-child::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 20px;
-            background: #c9a84c44;
-        }
+        .tree-wrapper { overflow: auto; max-height: 520px; padding: 10px; }
+        #arbol-canvas { display: block; }
     </style>
 </head>
 <body>
@@ -330,7 +270,7 @@
     <div class="panel editor-panel">
         <div class="panel-header">
             <h3>⚡ Editor de Código</h3>
-            <span style="color:#4a3a2a; font-size:0.75rem; letter-spacing:2px;">.chs</span>
+            <span style="color:#4a6a8a; font-size:0.75rem; letter-spacing:2px;">.chs</span>
         </div>
         <div class="panel-body">
             <textarea id="codigo" placeholder="// Escribe tu código ChaldeaScript aquí...
@@ -349,13 +289,15 @@ battle (hp > 0) {
 
             <div class="divider"></div>
 
-            <div style="color:#6a5a4a; font-size:0.75rem; letter-spacing:2px; margin-bottom:8px;">EJEMPLOS RÁPIDOS</div>
+            <div style="color:#4a6a8a; font-size:0.75rem; letter-spacing:2px; margin-bottom:8px;">EJEMPLOS RÁPIDOS</div>
             <div class="examples-btn">
-                <span class="example-chip" onclick="cargarEjemplo('basico')">Básico</span>
-                <span class="example-chip" onclick="cargarEjemplo('battle')">Battle</span>
-                <span class="example-chip" onclick="cargarEjemplo('skill')">Skill</span>
-                <span class="example-chip" onclick="cargarEjemplo('grail')">Grail</span>
-                <span class="example-chip" onclick="cargarEjemplo('error')">Con Errores</span>
+                <span class="example-chip" onclick="cargarEjemplo('prueba1')">⚔ Chaldea Básico</span>
+                <span class="example-chip" onclick="cargarEjemplo('prueba2')">💀 Errores Léxicos</span>
+                <span class="example-chip" onclick="cargarEjemplo('prueba3')">✨ Noble Phantasm</span>
+                <span class="example-chip" onclick="cargarEjemplo('prueba4')">🏆 Santo Grial</span>
+                <span class="example-chip" onclick="cargarEjemplo('prueba5')">⭐ Grand Order</span>
+                <span class="example-chip" onclick="cargarEjemplo('prueba6')">☠ Caída de Servants</span>
+                <span class="example-chip" onclick="cargarEjemplo('prueba7')">❌ Errores Sintácticos</span>
             </div>
         </div>
 
@@ -390,7 +332,7 @@ battle (hp > 0) {
         <!-- ÁRBOL -->
         <div class="tab-content" id="tab-arbol">
             <div id="arbol-container" class="tree-wrapper" style="display:none;">
-                <div class="tree" id="arbol-tree"></div>
+                <canvas id="arbol-canvas"></canvas>
             </div>
             <div class="empty-state" id="arbol-empty">⚔ Compila para ver el árbol sintáctico</div>
         </div>
@@ -399,56 +341,38 @@ battle (hp > 0) {
 </div>
 
 <script>
-    const ejemplos = {
-        basico: `// Ejemplo básico
-summon hp = 100;
-summon nombre = "Artoria";
-chant "Bienvenido a Chaldea";
-chant nombre;`,
+    function getBadgeStyle(tipo) {
+        const reservadas = ['SUMMON','CHANT','BATTLE','RETREAT','GRAIL','SKILL',
+            'SABER','ARCHER','LANCER','RIDER','CASTER','ASSASSIN',
+            'BERSERKER','RULER','AVENGER'];
+        const literales = ['NUMBER','STRING','BOOL'];
+        const operadores = ['PLUS','MINUS','MULT','DIV','EQ','NEQ','LT','GT',
+            'LE','GE','AND','OR','NOT','ASSIGN'];
+        const delimitadores = ['LPAREN','RPAREN','LBRACE','RBRACE','SEMI','COMMA'];
 
-        battle: `// Condicional battle/retreat
-summon hp = 150;
-summon enemigo = 80;
+        if (reservadas.includes(tipo))
+            return 'background:#1a2a1a; color:#4a9a4a; border:1px solid #4a9a4a44';
+        if (literales.includes(tipo))
+            return 'background:#1a1a2a; color:#9a4acc; border:1px solid #9a4acc44';
+        if (operadores.includes(tipo))
+            return 'background:#2a1a0a; color:#cc6a4a; border:1px solid #cc6a4a44';
+        if (delimitadores.includes(tipo))
+            return 'background:#1a1e2a; color:#a0b0c0; border:1px solid #a0b0c044';
+        if (tipo === 'ID')
+            return 'background:#0a1a2a; color:#4a9acc; border:1px solid #4a9acc44';
+        return 'background:#0a1a2a; color:#4a9acc; border:1px solid #4a9acc44';
+    }
 
-battle (hp > enemigo) {
-    chant "Victoria del Servant!";
-} retreat {
-    chant "Retirada estrategica";
-}`,
-
-        skill: `// Declaración de skills
-skill invocar() {
-    summon poder = 999;
-    chant "Noble Phantasm activado!";
-}
-
-skill curar() {
-    chant "Servant curado!";
-}
-
-invocar();
-curar();`,
-
-        grail: `// Ciclo grail
-summon mana = 5;
-
-grail (mana > 0) {
-    chant "Usando el Santo Grial";
-    summon mana = mana - 1;
-}
-
-chant "Mana agotado";`,
-
-        error: `// Código con errores
-summon hp = 100
-summon @mana = 50;
-battle hp > 0 {
-    chant "Falta parentesis"
-}`
-    };
-
-    function cargarEjemplo(tipo) {
-        document.getElementById('codigo').value = ejemplos[tipo];
+    async function cargarEjemplo(nombre) {
+        try {
+            const response = await fetch(`/api/ejemplos/${nombre}`);
+            const data = await response.json();
+            if (data.exito) {
+                document.getElementById('codigo').value = data.codigo;
+            }
+        } catch (err) {
+            console.error('Error cargando ejemplo');
+        }
     }
 
     function showTab(tab) {
@@ -509,12 +433,13 @@ battle hp > 0 {
             </tr></thead><tbody>`;
 
         tokens.forEach(t => {
+            const badgeStyle = getBadgeStyle(t.tipo);
             html += `<tr>
-                <td>${t.numero}</td>
-                <td><code style="color:#c9a84c">${escHtml(t.valor)}</code></td>
-                <td><span class="badge badge-token">${t.tipo}</span></td>
-                <td>${t.linea}</td>
-                <td>${t.columna}</td>
+                <td style="color:#6a8aaa">${t.numero}</td>
+                <td><code style="color:#e0eaf5">${escHtml(t.valor)}</code></td>
+                <td><span style="display:inline-block; padding:2px 8px; border-radius:2px; font-size:0.72rem; font-family:'Cinzel',serif; letter-spacing:1px; ${badgeStyle}">${t.tipo}</span></td>
+                <td style="color:#6a8aaa">${t.linea}</td>
+                <td style="color:#6a8aaa">${t.columna}</td>
             </tr>`;
         });
 
@@ -538,19 +463,19 @@ battle hp > 0 {
             const badge = e.tipo === 'LÉXICO' ? 'badge-error-lexico' : 'badge-error-sint';
             html += `<tr>
                 <td><span class="badge ${badge}">${e.tipo}</span></td>
-                <td>${e.linea}</td>
-                <td>${e.columna}</td>
-                <td style="color:#c08060">${escHtml(e.descripcion)}</td>
+                <td style="color:#6a8aaa">${e.linea}</td>
+                <td style="color:#6a8aaa">${e.columna}</td>
+                <td style="color:#e0eaf5">${escHtml(e.descripcion)}</td>
             </tr>`;
         });
 
         html += '</tbody></table>';
         document.getElementById('errores-container').innerHTML = html;
     }
+
     function mostrarArbol(arbolJson) {
         const container = document.getElementById('arbol-container');
         const empty = document.getElementById('arbol-empty');
-        const treeDiv = document.getElementById('arbol-tree');
 
         if (!arbolJson) {
             container.style.display = 'none';
@@ -558,35 +483,100 @@ battle hp > 0 {
             return;
         }
 
-        treeDiv.innerHTML = construirArbolHtml(arbolJson);
         container.style.display = 'block';
         empty.style.display = 'none';
+        setTimeout(() => dibujarArbol(arbolJson), 50);
     }
 
-    function construirArbolHtml(nodo) {
-        if (!nodo) return '';
+    function calcularPosiciones(nodo, profundidad, contador) {
+        nodo._y = profundidad * 80;
+        if (!nodo.hijos || nodo.hijos.length === 0) {
+            nodo._x = contador.val * 120;
+            contador.val++;
+        } else {
+            nodo.hijos.forEach(hijo => calcularPosiciones(hijo, profundidad + 1, contador));
+            const primero = nodo.hijos[0]._x;
+            const ultimo = nodo.hijos[nodo.hijos.length - 1]._x;
+            nodo._x = (primero + ultimo) / 2;
+        }
+    }
 
-        const esError = nodo.nombre && (
-            nodo.nombre.includes('missing') ||
-            nodo.nombre.includes('mismatched') ||
-            nodo.nombre.includes('<EOF>')
-        );
+    function obtenerProfundidad(nodo) {
+        if (!nodo.hijos || nodo.hijos.length === 0) return 0;
+        return 1 + Math.max(...nodo.hijos.map(obtenerProfundidad));
+    }
 
-        const clase = nodo.esHoja
-            ? (esError ? 'error-node' : 'hoja')
-            : 'interno';
+    function dibujarArbol(arbolJson) {
+        const canvas = document.getElementById('arbol-canvas');
+        const ctx = canvas.getContext('2d');
 
-        let html = `<ul><li>
-            <span class="tree-node ${clase}">${escHtml(nodo.nombre)}</span>`;
+        const contador = { val: 0 };
+        calcularPosiciones(arbolJson, 0, contador);
+
+        const padding = 60;
+        const ancho = contador.val * 120 + padding * 2;
+        const alto = (obtenerProfundidad(arbolJson) + 1) * 80 + padding * 2;
+
+        canvas.width = ancho;
+        canvas.height = alto;
+
+        ctx.clearRect(0, 0, ancho, alto);
+        dibujarNodos(ctx, arbolJson, padding);
+    }
+
+    function dibujarNodos(ctx, nodo, padding) {
+        const x = nodo._x + padding;
+        const y = nodo._y + padding;
 
         if (nodo.hijos && nodo.hijos.length > 0) {
             nodo.hijos.forEach(hijo => {
-                html += construirArbolHtml(hijo);
+                const hx = hijo._x + padding;
+                const hy = hijo._y + padding;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y + 14);
+                ctx.lineTo(hx, hy - 14);
+                ctx.strokeStyle = '#4a9acc55';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                dibujarNodos(ctx, hijo, padding);
             });
         }
 
-        html += '</li></ul>';
-        return html;
+        const esHoja = !nodo.hijos || nodo.hijos.length === 0;
+        const esError = nodo.nombre && (
+            nodo.nombre.includes('missing') ||
+            nodo.nombre.includes('mismatched')
+        );
+
+        const texto = nodo.nombre || '';
+        ctx.font = '11px Courier New';
+        const textWidth = ctx.measureText(texto).width;
+        const boxW = Math.max(textWidth + 16, 40);
+        const boxH = 26;
+
+        if (esError) {
+            ctx.fillStyle = '#1a0a0a';
+            ctx.strokeStyle = '#c0404088';
+        } else if (esHoja) {
+            ctx.fillStyle = '#0a1a0a';
+            ctx.strokeStyle = '#4a9a4a88';
+        } else {
+            ctx.fillStyle = '#0a1a3a';
+            ctx.strokeStyle = '#4a9acc88';
+        }
+
+        ctx.beginPath();
+        ctx.roundRect(x - boxW/2, y - boxH/2, boxW, boxH, 3);
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.fillStyle = esError ? '#c04040' : esHoja ? '#4a9a4a' : '#e0eaf5';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(texto, x, y);
     }
 
     function limpiar() {
