@@ -253,8 +253,94 @@
         .example-chip:hover { border-color: #4a9acc; color: #e0eaf5; background: #4a9acc11; }
 
         /* ÁRBOL VISUAL */
-        .tree-wrapper { overflow: auto; max-height: 520px; padding: 10px; }
+        .tree-wrapper { overflow: auto; max-height: 520px; padding: 10px; position: relative; }
         #arbol-canvas { display: block; }
+
+        /* BOTON FULLSCREEN */
+        .arbol-header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 8px 8px 0;
+        }
+
+        .btn-fullscreen {
+            background: transparent;
+            border: 1px solid #1a3a6a55;
+            color: #4a6a8a;
+            padding: 4px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-fullscreen:hover {
+            border-color: #4a9acc;
+            color: #4a9acc;
+            background: #4a9acc11;
+        }
+
+        /* MODAL FULLSCREEN */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #050a1a;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid #1a3a6a55;
+            background: #080f20;
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            color: #4a9acc;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+        }
+
+        .btn-close {
+            background: transparent;
+            border: 1px solid #c0404055;
+            color: #c04040;
+            padding: 6px 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .btn-close:hover { background: #c0404011; border-color: #c04040; }
+
+        /* Modal body con scroll en ambas direcciones */
+        .modal-body {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        #arbol-canvas-full { display: block; }
     </style>
 </head>
 <body>
@@ -331,6 +417,11 @@ battle (hp > 0) {
 
         <!-- ÁRBOL -->
         <div class="tab-content" id="tab-arbol">
+            <div class="arbol-header" id="arbol-header" style="display:none;">
+                <button class="btn-fullscreen" onclick="abrirFullscreen()">
+                    ⛶ Pantalla Completa
+                </button>
+            </div>
             <div id="arbol-container" class="tree-wrapper" style="display:none;">
                 <canvas id="arbol-canvas"></canvas>
             </div>
@@ -340,7 +431,20 @@ battle (hp > 0) {
 
 </div>
 
+<!-- MODAL FULLSCREEN -->
+<div class="modal-overlay" id="modal-arbol">
+    <div class="modal-header">
+        <span class="modal-title">⚔ ÁRBOL SINTÁCTICO — CHALDEASCRIPT</span>
+        <button class="btn-close" onclick="cerrarFullscreen()">✕ Cerrar</button>
+    </div>
+    <div class="modal-body">
+        <canvas id="arbol-canvas-full"></canvas>
+    </div>
+</div>
+
 <script>
+    let arbolActual = null;
+
     function getBadgeStyle(tipo) {
         const reservadas = ['SUMMON','CHANT','BATTLE','RETREAT','GRAIL','SKILL',
             'SABER','ARCHER','LANCER','RIDER','CASTER','ASSASSIN',
@@ -476,17 +580,36 @@ battle (hp > 0) {
     function mostrarArbol(arbolJson) {
         const container = document.getElementById('arbol-container');
         const empty = document.getElementById('arbol-empty');
+        const header = document.getElementById('arbol-header');
 
         if (!arbolJson) {
             container.style.display = 'none';
             empty.style.display = 'block';
+            header.style.display = 'none';
+            arbolActual = null;
             return;
         }
 
+        arbolActual = arbolJson;
         container.style.display = 'block';
         empty.style.display = 'none';
-        setTimeout(() => dibujarArbol(arbolJson), 50);
+        header.style.display = 'flex';
+        setTimeout(() => dibujarArbolEn('arbol-canvas', arbolJson), 50);
     }
+
+    function abrirFullscreen() {
+        if (!arbolActual) return;
+        document.getElementById('modal-arbol').classList.add('active');
+        setTimeout(() => dibujarArbolEn('arbol-canvas-full', arbolActual), 50);
+    }
+
+    function cerrarFullscreen() {
+        document.getElementById('modal-arbol').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') cerrarFullscreen();
+    });
 
     function calcularPosiciones(nodo, profundidad, contador) {
         nodo._y = profundidad * 80;
@@ -506,8 +629,8 @@ battle (hp > 0) {
         return 1 + Math.max(...nodo.hijos.map(obtenerProfundidad));
     }
 
-    function dibujarArbol(arbolJson) {
-        const canvas = document.getElementById('arbol-canvas');
+    function dibujarArbolEn(canvasId, arbolJson) {
+        const canvas = document.getElementById(canvasId);
         const ctx = canvas.getContext('2d');
 
         const contador = { val: 0 };
@@ -532,14 +655,12 @@ battle (hp > 0) {
             nodo.hijos.forEach(hijo => {
                 const hx = hijo._x + padding;
                 const hy = hijo._y + padding;
-
                 ctx.beginPath();
                 ctx.moveTo(x, y + 14);
                 ctx.lineTo(hx, hy - 14);
                 ctx.strokeStyle = '#4a9acc55';
                 ctx.lineWidth = 1;
                 ctx.stroke();
-
                 dibujarNodos(ctx, hijo, padding);
             });
         }
@@ -589,6 +710,8 @@ battle (hp > 0) {
         document.getElementById('errores-container').innerHTML = '<div class="empty-state">✦ Sin errores detectados</div>';
         document.getElementById('arbol-container').style.display = 'none';
         document.getElementById('arbol-empty').style.display = 'block';
+        document.getElementById('arbol-header').style.display = 'none';
+        arbolActual = null;
         setStatus('status-idle', 'Esperando código...');
     }
 
