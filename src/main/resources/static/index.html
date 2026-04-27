@@ -293,10 +293,10 @@
             width: 100vw; height: 100vh;
             background: #050a1a;
             z-index: 1000;
-            flex-direction: column;
+            overflow: scroll;
         }
 
-        .modal-overlay.active { display: flex; }
+        .modal-overlay.active { display: block; }
 
         .modal-header {
             display: flex;
@@ -305,7 +305,11 @@
             padding: 14px 20px;
             border-bottom: 1px solid #1a3a6a55;
             background: #080f20;
-            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            width: 100vw;
         }
 
         .modal-title {
@@ -330,14 +334,10 @@
 
         .btn-close:hover { background: #c0404011; border-color: #c04040; }
 
-        /* Modal body con scroll en ambas direcciones */
         .modal-body {
-            flex: 1;
-            overflow: auto;
             padding: 20px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-start;
+            width: max-content;
+            min-width: 100vw;
         }
 
         #arbol-canvas-full { display: block; }
@@ -599,12 +599,19 @@ battle (hp > 0) {
 
     function abrirFullscreen() {
         if (!arbolActual) return;
-        document.getElementById('modal-arbol').classList.add('active');
-        setTimeout(() => dibujarArbolEn('arbol-canvas-full', arbolActual), 50);
+        const modal = document.getElementById('modal-arbol');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        modal.scrollTop = 0;
+        modal.scrollLeft = 0;
+        setTimeout(() => {
+            dibujarArbolEn('arbol-canvas-full', arbolActual);
+        }, 50);
     }
 
     function cerrarFullscreen() {
         document.getElementById('modal-arbol').classList.remove('active');
+        document.body.style.overflow = '';
     }
 
     document.addEventListener('keydown', e => {
